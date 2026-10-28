@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kit aberto de prospecção outbound assistida: pesquisa, revisão humana e CRM local com Hermes Agent. Sem automação de ações no LinkedIn.">
+  <meta name="theme-color" content="#121c1b">
+  <title>Hermes / Outbound assistido</title>
+  <style>
+    :root { --ink:#172522; --forest:#123a34; --leaf:#0f6553; --paper:#f3f1e8; --white:#fffefa; --line:#d8d9cd; --muted:#58635c; --lime:#d9f174; --orange:#da754e; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.5; }
+    a { color:inherit; }
+    a:focus-visible, button:focus-visible { outline:3px solid var(--orange); outline-offset:3px; }
+    .wrap { width:min(1180px, calc(100% - 48px)); margin-inline:auto; }
+    header { background:#121c1b; color:var(--white); border-bottom:1px solid #3b4c47; }
+    .nav { display:flex; justify-content:space-between; align-items:center; min-height:72px; gap:24px; }
+    .brand { display:inline-flex; align-items:center; gap:12px; text-decoration:none; font-size:14px; font-weight:800; letter-spacing:.06em; }
+    .brandmark { display:grid; place-items:center; width:32px; height:32px; border:1px solid var(--lime); border-radius:50%; color:var(--lime); font-size:21px; }
+    nav { display:flex; align-items:center; gap:24px; font-size:13px; font-weight:650; }
+    nav a { text-decoration:none; color:#d3ded2; } nav a:hover { color:var(--lime); }
+    .hero { background:#121c1b; color:var(--white); overflow:hidden; }
+    .hero-inner { position:relative; display:grid; grid-template-columns:1.25fr .75fr; min-height:595px; align-items:center; gap:48px; padding-block:74px 96px; }
+    .eyebrow,.section-kicker { font-size:11px; font-weight:850; letter-spacing:.22em; text-transform:uppercase; }
+    .eyebrow { color:var(--lime); display:flex; align-items:center; gap:13px; }
+    .eyebrow:before { content:""; width:30px; height:1px; background:var(--lime); }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { max-width:800px; margin:25px 0 24px; font-family:Georgia,"Times New Roman",serif; font-weight:400; font-size:clamp(54px,7.5vw,108px); letter-spacing:-.067em; line-height:.97; }
+    h1 em { color:var(--lime); font-style:italic; }
+    .hero-copy { max-width:590px; color:#b6c8bf; font-size:18px; line-height:1.65; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:36px; }
+    .button { display:inline-flex; min-height:48px; align-items:center; justify-content:center; gap:12px; padding:11px 19px; border:1px solid #71857b; border-radius:3px; background:transparent; color:var(--white); font-weight:750; font-size:13px; text-decoration:none; cursor:pointer; transition:transform .15s,background .15s; }
+    .button:hover { transform:translateY(-2px); background:#28423b; }
+    .button.primary { color:#12251e; background:var(--lime); border-color:var(--lime); }
+    .button.primary:hover { background:#e9ffa1; }
+    .hero-art { min-width:0; padding:12px; transform:rotate(-5deg); }
+    .sheet { background:#e7eddb; color:var(--ink); padding:25px; box-shadow:19px 23px 0 #2c4940; max-width:370px; margin:auto; }
+    .sheet-top { display:flex; justify-content:space-between; border-bottom:1px solid #9cac9b; padding-bottom:18px; font-size:11px; letter-spacing:.17em; font-weight:850; }
+    .sheet h2 { font-family:Georgia,serif; font-size:35px; line-height:1.03; letter-spacing:-.045em; font-weight:400; margin:35px 0 22px; }
+    .sheet-row { display:flex; align-items:center; gap:13px; padding:14px 0; border-top:1px solid #bfcebd; font-size:13px; }
+    .sheet-row b { color:var(--leaf); font-size:12px; } .sheet-row span { flex:1; } .sheet-row i { font-style:normal; font-size:11px; }
+    .sheet-foot { margin-top:22px; padding:16px; background:var(--forest); color:var(--lime); font-size:12px; font-weight:750; }
+    .ribbon { display:flex; flex-wrap:wrap; gap:10px 26px; padding-block:18px; border-bottom:1px solid var(--line); font-size:12px; font-weight:750; letter-spacing:.05em; text-transform:uppercase; color:var(--forest); }
+    .ribbon span:before { content:"✦"; color:var(--orange); padding-right:9px; }
+    section { padding-block:105px; }
+    .section-kicker { color:var(--leaf); margin-bottom:18px; }
+    h2 { max-width:750px; font:400 clamp(38px,5vw,68px)/1.05 Georgia,serif; letter-spacing:-.052em; margin-bottom:20px; }
+    .lead { max-width:680px; color:var(--muted); font-size:17px; line-height:1.7; }
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:48px; }
+    .card { padding:30px; min-height:260px; background:var(--white); border:1px solid var(--line); display:flex; flex-direction:column; }
+    .card .num { font:italic 32px Georgia,serif; color:var(--leaf); }
+    .card h3 { margin:32px 0 10px; font-size:20px; letter-spacing:-.03em; }
+    .card p { color:var(--muted); font-size:14px; margin:0; }
+    .dark-section { background:var(--forest); color:var(--white); }
+    .dark-section .section-kicker { color:var(--lime); } .dark-section .lead { color:#b9d1c5; }
+    .stack { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:#5a786d; border:1px solid #5a786d; margin-top:48px; }
+    .stack-item { display:grid; grid-template-columns:95px 1fr; gap:10px; padding:24px; background:var(--forest); }
+    .stack-item strong { color:var(--lime); font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
+    .stack-item h3 { font-size:16px; margin:0 0 6px; } .stack-item p { margin:0; font-size:13px; color:#b9d1c5; }
+    .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:54px; }
+    .step { border-top:2px solid var(--forest); padding-top:18px; }
+    .step small { font-size:11px; color:var(--leaf); font-weight:900; letter-spacing:.12em; }
+    .step h3 { margin:24px 0 12px; font-size:20px; } .step p { color:var(--muted); font-size:14px; }
+    .callout { margin-top:55px; border-left:4px solid var(--orange); padding:18px 23px; background:#e9e8dc; font-size:14px; color:#435048; }
+    .callout strong { color:var(--ink); }
+    .cta { background:var(--lime); padding-block:82px; }
+    .cta-inner { display:flex; align-items:end; justify-content:space-between; gap:28px; }
+    .cta h2 { margin:0; max-width:700px; } .cta .button { background:var(--ink); border-color:var(--ink); white-space:nowrap; }
+    footer { background:#121c1b; color:#a9c0b5; padding-block:32px; font-size:12px; }
+    footer .wrap { display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; } footer a { color:var(--lime); }
+    @media(max-width:850px) { .hero-inner { grid-template-columns:1fr; padding-block:65px 85px; } .hero-art { display:none; } .cards { grid-template-columns:repeat(2,1fr); } .steps { grid-template-columns:repeat(2,1fr); } .cta-inner { align-items:start; flex-direction:column; } }
+    @media(max-width:580px) { .wrap { width:min(100% - 32px,1180px); } nav a:first-child, nav a:nth-child(2) { display:none; } nav { white-space:nowrap; } .nav { min-height:62px; } .hero-inner { min-height:0; padding-block:74px 87px; } h1 { font-size:clamp(53px,14vw,78px); } .hero-copy { font-size:16px; } section { padding-block:74px; } .cards,.steps,.stack { grid-template-columns:1fr; } .card { min-height:205px; } .stack-item { grid-template-columns:80px 1fr; } .cta { padding-block:70px; } .actions .button { width:100%; } }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .button { transition:none; } }
+  </style>
+</head>
+<body>
+  <header><div class="wrap nav"><a class="brand" href="#inicio" aria-label="Hermes Outbound, início"><span class="brandmark">✳</span> HERMES / OUTBOUND</a><nav aria-label="Navegação"><a href="#stack">A stack</a><a href="#metodo">O método</a><a href="https://github.com/eduardovaladares37/hermes-linkedin-outbound-kit">GitHub ↗</a></nav></div></header>
+  <main>
+    <div class="hero" id="inicio"><div class="wrap hero-inner"><div><div class="eyebrow">Kit aberto · pesquisa com revisão humana</div><h1>Outbound com<br><em>critério.</em></h1><p class="hero-copy">Uma stack enxuta para transformar pesquisa em conversas relevantes: identifique contas, confira evidências, prepare uma fila e registre o que realmente aconteceu. Você decide e envia.</p><div class="actions"><a class="button primary" href="https://github.com/eduardovaladares37/hermes-linkedin-outbound-kit">Acessar o kit no GitHub <span aria-hidden="true">↗</span></a><a class="button" href="#metodo">Explorar o método <span aria-hidden="true">↓</span></a></div></div><div class="hero-art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><span>HERMES / 001</span><span>OUTBOUND</span></div><h2>Da hipótese<br>à conversa.</h2><div class="sheet-row"><b>01</b><span>Definir ICP</span><i>●</i></div><div class="sheet-row"><b>02</b><span>Encontrar evidências</span><i>●</i></div><div class="sheet-row"><b>03</b><span>Revisar o contato</span><i>●</i></div><div class="sheet-row"><b>04</b><span>Registrar resultado</span><i>●</i></div><div class="sheet-foot">Pesquisa assistida. Relacionamento humano. ↗</div></div></div></div></div>
+    <div class="wrap ribbon" aria-label="Princípios"><span>Fontes públicas</span><span>Dados mínimos</span><span>Revisão humana</span><span>Sem envio automático</span></div>
+    <section class="wrap" id="visao"><p class="section-kicker">01 / A proposta</p><h2>Menos volume.<br>Mais contexto.</h2><p class="lead">O Hermes faz o trabalho de apoio — pesquisa, organização e rascunhos. O contato no LinkedIn continua sob controle da pessoa, sem entregar credenciais ou transformar a conta em uma máquina de disparos.</p><div class="cards"><article class="card"><span class="num">01</span><h3>Encontrar o encaixe</h3><p>Defina segmento, cargo, território, sinais de compra e exclusões. Comece pela empresa, não por uma lista de nomes.</p></article><article class="card"><span class="num">02</span><h3>Provar antes de propor</h3><p>Registre fonte, cargo atual, URL pública verificada e razão concreta para conversar. Sem URLs inventadas.</p></article><article class="card"><span class="num">03</span><h3>Preservar a relação</h3><p>Revise cada contato, respeite recusas e mantenha um histórico local para não abordar a mesma pessoa duas vezes.</p></article></div></section>
+    <section class="dark-section" id="stack"><div class="wrap"><p class="section-kicker">02 / A stack</p><h2>O necessário.<br>Sem levar a sua conta junto.</h2><p class="lead">Um kit reproduzível com ferramentas disponíveis no Hermes e um pequeno script local. O destinatário configura sua própria autenticação.</p><div class="stack"><div class="stack-item"><strong>Base</strong><div><h3>Hermes Agent + modelo próprio</h3><p>Coordena pesquisa, análise de ICP e rascunhos; instalação e login independentes.</p></div></div><div class="stack-item"><strong>Pesquisa</strong><div><h3>Busca web + fontes oficiais</h3><p>Descobre empresas e evidências públicas. Navegador opcional para sites abertos, não para automatizar LinkedIn.</p></div></div><div class="stack-item"><strong>Método</strong><div><h3>Skill portátil incluída</h3><p>Passo a passo de qualificação, revisão, contato manual e atualização do histórico.</p></div></div><div class="stack-item"><strong>Controle</strong><div><h3>CSV privado + Python padrão</h3><p>Fila, deduplicação, exclusões e registro local; sem serviços pagos ou dependências Python extras.</p></div></div></div></div></section>
+    <section class="wrap" id="metodo"><p class="section-kicker">03 / Coloque em prática</p><h2>Quatro etapas.<br>Uma trilha auditável.</h2><div class="steps"><div class="step"><small>PASSO 01</small><h3>Instale</h3><p>Configure o Hermes e seu próprio provedor. Clone o kit e carregue a skill.</p></div><div class="step"><small>PASSO 02</small><h3>Pesquise</h3><p>Preencha o CSV de candidatos em uma pasta privada com fontes públicas e aderência ao ICP.</p></div><div class="step"><small>PASSO 03</small><h3>Revise</h3><p>Gere a fila local; confira identidade, empresa, motivo e eventual texto antes de agir.</p></div><div class="step"><small>PASSO 04</small><h3>Converse</h3><p>Envie pessoalmente no LinkedIn. Só registre “enviado” quando houver confirmação real.</p></div></div><div class="callout"><strong>Limite deliberado:</strong> este kit não automatiza login, coleta de dados privados, convites, mensagens ou follow-ups no LinkedIn. Acordo de Usuário e restrições da plataforma se aplicam; intervalos entre ações não substituem autorização.</div></section>
+    <section class="cta"><div class="wrap cta-inner"><div><p class="section-kicker">Pronto para compartilhar</p><h2>Uma base limpa para o próximo contato.</h2></div><a class="button" href="https://github.com/eduardovaladares37/hermes-linkedin-outbound-kit">Ver guia e arquivos ↗</a></div></section>
+  </main>
+  <footer><div class="wrap"><span>Hermes / Outbound assistido · kit independente, licença MIT.</span><span><a href="https://hermes-agent.nousresearch.com/docs/">Documentação Hermes</a> · <a href="https://www.linkedin.com/legal/user-agreement">Termos LinkedIn</a></span></div></footer>
+</body>
+</html>
